@@ -1,0 +1,40 @@
+{
+  "name": "node_sample",
+  "version": "0.1.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon src/server/app.js",
+    "client": "webpack-dev-server --mode development",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "start": "node src/server/app.js --exec babel-node",
+    "stop": "lsof -ti :3000 | xargs kill",
+    "build": "webpack --mode production",
+    "build-dev": "webpack --mode development"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/polyfill": "^7.8.3",
+    "express": "^4.17.1",
+    "jquery": "^3.4.1",
+    "jsrender": "^1.0.5",
+    "socket.io": "^2.3.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/node": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "babel-loader": "^8.0.6",
+    "clean-webpack-plugin": "^3.0.0",
+    "concurrently": "^5.1.0",
+    "html-webpack-plugin": "^3.2.0",
+    "nodemon": "^2.0.2",
+    "webpack": "^4.41.6",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3",
+    "webpack-node-externals": "^1.7.2"
+  }
+}

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html style="margin: 0px 0px; padding: 0px 0px;">
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta HTTP-EQUIV="Pragma" CONTENT="no-cache"/>
+    <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache"/>
+    <META HTTP-EQUIV="Expires" CONTENT="-1"/>
+</head>
+<body style="margin: 0px 0px; padding: 0px 0px; border: solid 0px;">
+
+
+<!-- @ Begin html (/src/view/dp/header.html) -->
+
+
+<div style="border: solid 0px gray; margin: 10px 10px;">
+    <div style="height: 80px; font-size: 12px;">
+        <div style='font-size: 16px;'>Sample zonehtml5mediaplayer (firstbrainvod)</div>
+        <table>
+            <tr>
+                <td>
+                    current protocol:
+                    (<span style="color: red;">http</span>)
+                </td>
+                <td>
+                    
+                        <a href="https://html5.imgtech.co.kr/dp/firstbrain/firstbrainvod/index.html?disp=build&dev=true">https://로 이동</a>
+                    
+                </td>
+            </tr>
+        </table>
+        
+            <table>
+                <tr>
+                    <td align="right">configure-version: &nbsp;</td>
+                    <td>zoneplayer-<span style='color: red;'>2.3.21.299</span>-firstbrainvod.<span style='color:red;'>1</span></td>
+                </tr>
+                <tr>
+                    <td align="right">current-version: &nbsp;</td>
+                    <td>
+                        
+                            <span style='color: green; font-weight: bold;'>2.3.21.299</span>
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">imgtech-devel-version: &nbsp;</td>
+                    <td>
+                        
+                            <span style='color: green; font-weight: bold;'>2.3.21.299</span>
+                        
+                    </td>
+                </tr>
+                
+                
+            </table>
+        
+    </div>
+    
+    <div style="margin: 10px 10px;">
+        
+        
+        <p></p>
+        <table style='font-size: 12px;' border='1px'>
+            
+            <tr>
+                <td>
+                    2019-10-02
+                </td>
+                <td style='padding: 0px 10px;'>
+                    zoneplayer-<span style='color: red;'>2.3.21.299</span>-firstbrainvod.<span style='color: red;'>1</span>
+                </td>
+                <td>
+                    <button onclick="view('2.3.21.299', 1);">
+                        View
+                    </button>
+                </td>
+                <td>
+                    <button onclick="download('2.3.21.299', 1);">
+                        Download
+                    </button>
+                </td>
+            </tr>
+            
+        </table>
+        
+        
+        <script>
+        (function(){
+            window.view = function(version, update){
+                var add = version && update ? "&version=zoneplayer-"+version+"-firstbrainvod."+update : "";
+                window.open("http://html5.imgtech.co.kr:80/dp/firstbrain/firstbrainvod/index.html?disp=build&&view=true"+add);
+            };
+        })();
+        </script>
+        
+        
+        <script>
+        (function(){
+            window.download = function(version, update){
+                var add = version && update ? "&version=zoneplayer-"+version+"-firstbrainvod."+update : "";
+                window.open("http://html5.imgtech.co.kr:80/dp/firstbrain/firstbrainvod/index.html?disp=build&&download=true"+add);
+            };
+        })();
+        </script>
+    </div>
+    
+</div>
+<hr>
+
+
+    <script type="text/javascript" charset="utf-8" src="../../../js/mediaplayer.min.js"></script>
+
+    <script type="text/javascript" charset="utf-8" src="firstbrainvod.js"></script>
+    <link rel="stylesheet" href="firstbrainvod.css">
+
+
+<!-- @ End html (/src/view/dp/header.html)) -->
+
+
+<div style="margin-left: 30px;">
+    <div>img</div>
+    <div id="mediaplayer"></div>
+    
+    <p></p>
+
+    <div style="width: 100px; height: 2000px; border: solid 1px green;">
+        
+    </div>
+</div>
+
+
+<script>
+(function(){
+    
+    //*
+    var source = [
+            {
+                src: 'http://m4str.ebse.co.kr/EW1M1701/notice_big/eclip/CL2017M0GAV01ZZ/CL2017M0GAV01ZZ_130_1M.mp4'
+                //src: 'http://wstr.ebsmath.co.kr/ebsvod/ebsm/M42M1801/M201800009/M201800009_2000K_M00020.mp4'
+                //src : 'http://html5.imgtech.co.kr/static/video/sbs1.mp4'
+                //src: 'http://ebsonair.ebs.co.kr/plus3familypc/familypc1m/playlist.m3u8', isLive: true
+                //src: 'http://wstr.ebsmath.co.kr/ebsvod/ebsm/M42M1801/M201800009/M201800009_2000K_M00024.mp4'
+                //src: 'http://wstr.ebsmath.co.kr/ebsvod/ebsm/M42M1601/M201600009/M201600009_2000K_M00025.mp4'
+                //src: 'http://home.imgtech.co.kr/media/1.mp4'
+                //,poster: 'https://html5.imgtech.co.kr/static/download/onair_null.jpg'
+                /*subtitle: [
+                    {code: 'EN', src: 'http://zonedrm.imgtech.co.kr/static/test/MID_L05T_U27_D01_S02_001_E.smi', select: true},
+                    {code: 'KO', src: 'http://zonedrm.imgtech.co.kr/static/test/MID_L05T_U27_D01_S02_001_K.smi', select: true},
+                    {code: false, label: '자막켜기'}
+                ],
+                autoContinueTime: 120
+                */
+                //,continueTime: 120
+            }
+            //'http://ebsonair.ebs.co.kr/plus3familypc/familypc1m/playlist.m3u8',
+            //'http://m4str.ebse.co.kr/EW1M1701/notice_big/eclip/CL2017M0GAV01ZZ/CL2017M0GAV01ZZ_130_1M.mp4',
+            //'http://home.imgtech.co.kr/media/1.mp4',
+            //'http://zonedrm.imgtech.co.kr/static/mac/sbs1.mp4',
+            //'http://html5.imgtech.co.kr:9080/video/sbs1.mp4/index.m3u8'
+        ];
+    /*/
+    // this is live !!!
+    var source = {
+        src: 'http://ebsonair.ebs.co.kr/plus3familypc/familypc1m/playlist.m3u8',
+        isLive: true
+    }
+    //*/
+    
+    var player_ebsmvod = window.createMediaPlayer('#mediaplayer', source, {
+        //poster: 'http://m.imgtech.co.kr/html5/thumbs/thumb.png'
+        width: 764,
+        height: 469,
+        autoplay: false
+        
+    }, function(e){
+        
+    });
+    
+})();
+</script>
+
+</body>
+</html>
