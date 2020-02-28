@@ -25,7 +25,7 @@ const surveyResultTmpl = `
     {{for surveyItems}}
     <li id="survey{{:id}}">
       <label for="survey{{:id}}">{{>subject}}</label>
-      <div class="graph"><div>{{:vote}}<span class="percent">0%</span></div></div>
+      <div class="graph"><div style="width:{{:vote*10}}%">&nbsp;<span class="percent">0%</span></div></div>
     </li>
     {{/for}}
   </ol>
@@ -76,8 +76,11 @@ const RealtimeSurveyClient = {
 function listenOnServer() {
 
   // 투표결과 갱신
-  socket.on('broadcast.updateVote', (item) => {
-    console.log(item);
+  socket.on('broadcast.updateVote', (items, voteItem) => {
+    console.log(voteItem);
+
+    // TODO 임시로 투표수 * 10% 로 지정해 보자!
+    $(`#survey${voteItem.id} .graph div`).css('width', `${voteItem.vote*10}%`);
   });
 }
 

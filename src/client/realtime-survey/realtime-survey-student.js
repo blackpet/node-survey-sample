@@ -29,9 +29,10 @@ function listenOnServer() {
     RealtimeSurveyClient.renderSurvey('#survey', survey);
   });
 
-  // 투표
-  socket.on('broadcast.vote', (id) => {
-
+  // 투표결과 갱신
+  socket.on('broadcast.updateVote', (items, voteItem) => {
+    survey.surveyItems = items;
+    console.log('student!! updateVote');
   });
 
 }
@@ -96,7 +97,9 @@ function swapConnectState(state) {
   $('#userId').prop('disabled', state);
 }
 
-
+// 결과보기 화면으로 전환!
 function changeSurveyToResult() {
   RealtimeSurveyClient.renderSurvey('#survey', survey);
+
+  $('#voteBtn').addClass('hidden');
 }
