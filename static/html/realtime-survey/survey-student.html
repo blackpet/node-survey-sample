@@ -3,17 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <title>Realtime Survey :: Student</title>
+  <script src="https://kit.fontawesome.com/c19589889a.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
-<h1>survey items (Student)</h1>
+<div class="realtime-survey student">
 
-<div id="survey"></div>
+  <div>
+    userId: <input type="text" id="userId">
+    <button id="connectBtn">접속하기</button>
+    <button id="disconnectBtn" class="hidden">연결끊기</button>
+  </div>
 
-<div>
-  <button id="voteBtn">투표하기</button>
-  <button id="disconnectBtn">연결끊기</button>
+  <h1>survey items (Student)</h1>
+
+  <div id="survey"></div>
+
+  <div>
+    <button id="voteBtn">투표하기</button>
+  </div>
+
 </div>
+
 <script type="text/javascript" src="/vendors.bundle.js"></script>
 <script type="text/javascript" src="/realtime-survey-student.bundle.js"></script>
 </body>

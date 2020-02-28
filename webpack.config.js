@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const outputDir = 'dist';
 
@@ -39,30 +40,49 @@ module.exports = (env, options) => {
             rules: [
                 {
                     test: /\.js$/,
-                    include: [path.resolve(__dirname, 'src/client')],
-                    exclude: /node_modules/,
+                    // include: [path.resolve(__dirname, 'src/client')],
+                    // exclude: /node_modules/,
                     use: {
                         loader: 'babel-loader',
                         options: {
                             presets: ['@babel/preset-env'],
+                            plugins: ['@babel/plugin-transform-arrow-functions']
                         }
                     }
+                },
+                {
+                    test: /\.(sa|sc|c)ss$/i,
+                    use: [
+                      // creates 'style' nodes from JS strings
+                      // config.mode == 'development' ? 'style-loader' : MiniCssExtractPlugin,
+                      'style-loader',
+                      // Translates CSS into CommonJS
+                      'css-loader',
+                      // Compiles Sass to CSS
+                      'sass-loader'
+                    ]
                 }
             ]
-        }
+        },
+        plugins: [
+          new MiniCssExtractPlugin({
+              filename: '[name].css',
+              chunkFilename: '[id].css'
+          })
+        ]
     };
 
     const mode = options.mode || config.mode;
 
     // mode configuration
     if(mode === 'development') {
-        config.plugins = [
+        config.plugins.concat([
             new webpack.HotModuleReplacementPlugin(),
             new HtmlWebpackPlugin({
                 title: 'Development',
                 showErrors: true // 에러 발생 시 메세지를 화면에 출력!
             })
-        ];
+        ]);
 
         config.devtool = 'inline-source-map'; // auto generating index.html
 
@@ -84,9 +104,9 @@ module.exports = (env, options) => {
         }
     } else {
         // production mode
-        config.plugins = [
+        config.plugins.concat([
             new CleanWebpackPlugin()
-        ]
+        ]);
     }
 
 
