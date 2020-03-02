@@ -1,6 +1,7 @@
 import '../scss/realtime-survey.scss';
 
 import io from 'socket.io-client';
+import * as _ from 'lodash';
 import $ from 'jquery';
 require('jsrender')($); // load JsRender as jQuery plugin
 
@@ -25,7 +26,7 @@ const surveyResultTmpl = `
     {{for surveyItems}}
     <li id="survey{{:id}}">
       <label for="survey{{:id}}">{{>subject}}</label>
-      <div class="graph"><div style="width:{{:vote*10}}%">&nbsp;<span class="percent">0%</span></div></div>
+      <div class="graph"><div style="width:{{:vote*10}}%">&nbsp;<span class="vote-count">0</span></div></div>
     </li>
     {{/for}}
   </ol>
@@ -79,8 +80,18 @@ function listenOnServer() {
   socket.on('broadcast.updateVote', (items, voteItem) => {
     console.log(voteItem);
 
+    // 투표 총 합계를 구하자!
+    var total = _.map(items, 'vote').reduce((sum, cur) => sum + cur);
+    console.log('total', total);
+
     // TODO 임시로 투표수 * 10% 로 지정해 보자!
-    $(`#survey${voteItem.id} .graph div`).css('width', `${voteItem.vote*10}%`);
+    items.map((item) => {
+      const percent = item.vote / (total || 1) * 100;
+      $(`#survey${item.id} .graph div`).css('width', `${percent}%`);
+      $(`#survey${item.id} .vote-count`).text(item.vote);
+    });
+
+    // $(`#survey${voteItem.id} .graph div`).css('width', `${voteItem.vote*10}%`);
   });
 }
 

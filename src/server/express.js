@@ -75,10 +75,10 @@ io.on('connection', (socket) => {
   socket.on('vote', (voteId) => {
     console.log(`${findUserIdBySocketId(socket.id)} vote: ${voteId}`);
 
-    const item = surveyService.increaseVoteCount(voteId);
+    const voteItem = surveyService.increaseVoteCount(voteId);
 
     // 투표 결과를 위해 다시 설문 데이터를 내려주자!
-    io.sockets.emit('broadcast.updateVote', survey.surveyItems, item);
+    io.sockets.emit('broadcast.updateVote', survey.surveyItems, voteItem);
   });
 });
 
