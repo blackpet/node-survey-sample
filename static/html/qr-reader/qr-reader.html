@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>QR Code Reader</title>
+
+  <style>
+    #cameraCv {
+      width: 500px;
+    }
+  </style>
+</head>
+<body>
+<h1>출석하기</h1>
+
+<canvas id="cameraCv" hidden></canvas>
+<div id="output">
+  No QR code detected.
+</div>
+
+<div>
+  <button id="attendByQrBtn">QR Code 로 출석하기</button>
+  <button id="goModeBtn">감지만 하기</button>
+</div>
+
+
+<script type="text/javascript" src="/vendors.bundle.js"></script>
+<script type="text/javascript" src="/qr-reader.bundle.js"></script>
+</body>
+</html>

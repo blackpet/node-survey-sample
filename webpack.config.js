@@ -20,6 +20,7 @@ module.exports = (env, options) => {
             player: './src/client/player.js',
             'realtime-survey-tutor': './src/client/realtime-survey/realtime-survey-tutor.js',
             'realtime-survey-student': './src/client/realtime-survey/realtime-survey-student.js',
+            'qr-reader': './src/client/qr-reader/qr-reader.js',
         },
         output: {
             filename: '[name].bundle.js',
