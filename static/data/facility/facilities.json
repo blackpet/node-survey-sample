@@ -1,0 +1,18 @@
+[
+  {
+    "faciId": 1,
+    "thumbnail": "https://image.shutterstock.com/image-vector/sample-stamp-square-grunge-sign-260nw-1474408826.jpg",
+    "location": "도연관 17층",
+    "name": "아주 좋은 개물1실",
+    "capacity": 100,
+    "cost": 100000
+  },
+  {
+    "faciId": 2,
+    "thumbnail": "https://cdn.hasselblad.com/hasselblad-com/ec67f4db463750c394c4e720acedf6b506b55b48_x1d-ii-sample-01-web.jpg?auto=format&q=97",
+    "location": "농심관 10층",
+    "name": "아주 노후된 강의실",
+    "capacity": 80,
+    "cost": 200000
+  }
+]

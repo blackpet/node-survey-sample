@@ -1,0 +1,33 @@
+[
+  {
+    "faciId": 1,
+    "startYmd": "20200227",
+    "startHm": "0900",
+    "endYmd": "20200227",
+    "endHm": "1100"
+  },
+
+  {
+    "faciId": 1,
+    "startYmd": "20200227",
+    "startHm": "1300",
+    "endYmd": "20200227",
+    "endHm": "1500"
+  },
+
+  {
+    "faciId": 2,
+    "startYmd": "20200227",
+    "startHm": "0900",
+    "endYmd": "20200227",
+    "endHm": "1100"
+  },
+
+  {
+    "faciId": 2,
+    "startYmd": "20200228",
+    "startHm": "1500",
+    "endYmd": "20200228",
+    "endHm": "1700"
+  }
+]

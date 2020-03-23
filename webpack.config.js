@@ -21,6 +21,8 @@ module.exports = (env, options) => {
             'realtime-survey-tutor': './src/client/realtime-survey/realtime-survey-tutor.js',
             'realtime-survey-student': './src/client/realtime-survey/realtime-survey-student.js',
             'qr-reader': './src/client/qr-reader/qr-reader.js',
+            'facility': './src/client/facility.js',
+            'fullcalendar': './src/client/fullcalendar/fullcalendar.js',
         },
         output: {
             filename: '[name].bundle.js',

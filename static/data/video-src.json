@@ -1,0 +1,10 @@
+[
+  {
+    "sourceUrl": "//d2zihajmogu5jn.cloudfront.net/sintel/master.m3u8",
+    "sourceType": "application/x-mpegurl"
+  },
+  {
+    "sourceUrl": "https://www.radiantmediaplayer.com/media/bbb-360p.mp4",
+    "sourceType": "video/mp4"
+  }
+]

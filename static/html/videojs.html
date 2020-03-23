@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>video.js player sample</title>
+
+<!--    <link href="https://vjs.zencdn.net/7.6.6/video-js.css" rel="stylesheet" />-->
+    <link href="https://unpkg.com/video.js@7/dist/video-js.min.css" rel="stylesheet"/>
+    <!-- City -->
+    <link href="https://unpkg.com/@videojs/themes@1/dist/city/index.css" rel="stylesheet"/>
+
+    <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
+    <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+</head>
+<body>
+
+<video id="my-video" class="video-js"
+       width="640"
+       height="264"
+>
+<!--    <source src="//d2zihajmogu5jn.cloudfront.net/sintel/master.m3u8" type="application/x-mpegurl">-->
+    <source src="https://www.radiantmediaplayer.com/media/bbb-360p.mp4">
+    <p class="vjs-no-js">
+        please enable Javascript.
+    </p>
+</video>
+
+<script src="https://vjs.zencdn.net/7.6.6/video.js"></script>
+<script>
+    var firbVideo = videojs('my-video', {
+      autoplay: true,
+      controls: true,
+      preload: 'auto',
+      playbackRates: [0.5, 1, 1.2, 1.5, 2]
+    });
+
+    firbVideo.on('timeupdate', function(e) {
+      console.log(e);
+      console.log(this);
+      console.log(this.currentTime(), this.playbackRate());
+    })
+    // +++ Define the middleware function +++
+    // Calculate playback time ranges
+    const createNewRanges = (timeRanges, playbackRate) => {
+      const newRanges = [];
+
+      for (let i = 0; i < timeRanges.length; i++) {
+        newRanges.push([
+          timeRanges.start(i) / playbackRate,
+          timeRanges.end(i) / playbackRate]);
+      }
+
+      return videojs.createTimeRange(newRanges);
+    };
+
+    // Adjust values based on playback rate
+    const playbackrateAdjuster = function(player) {
+      let tech;
+
+      // Listen for ratechange event
+      player.on('ratechange', function() {
+        tech.trigger('durationchange');
+        tech.trigger('timeupdate');
+      });
+
+      // Implement setSource() to work with all sources
+      return {
+        setSource(srcObj, next) {
+          next(null, srcObj);
+        },
+
+        // Store the tech that Video.js gives us after source selection is complete.
+
+        setTech(newTech) {
+          tech = newTech;
+        },
+
+        // Override methods
+        duration(dur) {
+          return dur / player.playbackRate();
+        },
+
+        currentTime(ct) {
+          return ct / player.playbackRate();
+        },
+
+        setCurrentTime(ct) {
+          return ct * player.playbackRate();
+        },
+
+        buffered(bf) {
+          return createNewRanges(bf, player.playbackRate());
+        },
+
+        seekable(seekable) {
+          return createNewRanges(seekable, player.playbackRate());
+        },
+
+        played(played) {
+          return createNewRanges(played, player.playbackRate());
+        }
+
+      };
+    };
+
+    // +++ Register the middleware with the player +++
+    // videojs.use('*', playbackrateAdjuster);
+    //
+    // videojs.getPlayer("my-video").ready(function(){
+    //   // When the player is ready, get a reference to it
+    //   var myPlayer = this;
+    //   // +++ Define the playback rate options +++
+    //   options = {"playbackRates":[0.5, 1, 1.5, 2, 4]};
+    //   // +++ Initialize the playback rate button +++
+    //   myPlayer.controlBar.playbackRateMenuButton = myPlayer.controlBar.addChild('PlaybackRateMenuButton', {
+    //     playbackRates: options.playbackRates
+    //   });
+    // });
+</script>
+</body>
+</html>

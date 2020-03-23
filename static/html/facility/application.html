@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>시설 예약 sample</title>
+</head>
+<body>
+<h1>시설 예약</h1>
+
+<div class="searchPanel">
+    <label>시작일 : </label>
+    <input type="text" id="startYmd" value="20200227" placeholder="yyyyMMdd"> :
+    <input type="text" id="startHm" placeholder="HH24mi">
+
+    <label>종료일 : </label>
+    <input type="text" id="endYmd" value="20200303" placeholder="yyyyMMdd"> :
+    <input type="text" id="endHm" placeholder="HH24mi">
+
+    <button id="searchBtn">시설 조회하기</button>
+</div>
+
+<div class="reservationPanel">
+    <label>시작일 : </label>
+    <input type="text" id="resvStartYmd" value="20200227" placeholder="yyyyMMdd"> :
+    <input type="text" id="resvStartHm" value="1410" placeholder="HH24mi">
+
+    <label>종료일 : </label>
+    <input type="text" id="resvEndYmd" value="20200227" placeholder="yyyyMMdd"> :
+    <input type="text" id="resvEndHm" value="1610" placeholder="HH24mi">
+
+    <button id="reserveBtn">예약하기</button>
+</div>
+
+<table id="facilityListTable" border="1">
+    <thead id="facilitiesHeader">
+    </thead>
+
+    <tbody id="facilities">
+    </tbody>
+</table>
+
+<script type="text/html" id="tmplFacilityHeader">
+    <tr>
+        <th><input type="checkbox" id="checkAll"></th>
+        <th>시설</th>
+
+        {{for days}}
+        <th>{{>str}}</th>
+        {{/for}}
+    </tr>
+</script>
+
+<script type="text/html" id="tmplFacility">
+    {{for facis ~days=days}}
+    <tr>
+        <td><input type="checkbox" name="faciId" value="{{:faciId}}"></td>
+        <td>
+            <div><img src="{{:thumbnail}}"></div>
+            <div class="faci-name"><span>{{>location}}</span> {{>name}}</div>
+            <div>수용인원: {{:capacity}} / 시간당비용: {{:cost}}</div>
+        </td>
+
+        {{for ~days ~reservations=reservations}}
+        <td>
+            {{for ~reservations ~ymd=ymd}}
+                {{if ~ymd == startYmd}}
+                    <div>{{:startHm}} ~ {{:endHm}}</div>
+                {{/if}}
+            {{/for}}
+        </td>
+        {{/for}}
+    </tr>
+    {{/for}}
+</script>
+
+<script type="text/javascript" src="/vendors.bundle.js"></script>
+<script type="text/javascript" src="/facility.bundle.js"></script>
+</body>
+</html>

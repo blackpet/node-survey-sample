@@ -84,7 +84,7 @@ function listenOnServer() {
     var total = _.map(items, 'vote').reduce((sum, cur) => sum + cur);
     console.log('total', total);
 
-    // TODO 임시로 투표수 * 10% 로 지정해 보자!
+    // 전체 투표수를 백분율로 width를 표시하자!
     items.map((item) => {
       const percent = item.vote / (total || 1) * 100;
       $(`#survey${item.id} .graph div`).css('width', `${percent}%`);
