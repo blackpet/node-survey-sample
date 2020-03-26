@@ -9,13 +9,24 @@
     width: 300px;
   }
 
-  .faci-name span {
-    color: #666666;
-    &:before {
-      content: '[';
+  .faci-name {
+    span.location {
+      color: #666666;
+
+      &:before {
+        content: '[';
+      }
+
+      &:after {
+        content: ']';
+      }
     }
-    &:after {
-      content: ']';
+
+    span.name {
+      font-weight: bold;
+      color: #2471ff;
     }
   }
+
 }
+

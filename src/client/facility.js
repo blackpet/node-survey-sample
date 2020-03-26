@@ -11,8 +11,8 @@ $(document).ready(function () {
   // attach events
   // [시설 조회하기]btn
   $('#searchBtn').click(evt.searchFacility);
-  // [예약하기]btn
-  $('#reserveBtn').click(evt.reserve);
+  // [예약 가능한 시설 확인]btn
+  $('#reservableFaciBtn').click(evt.findReservableFaci);
 
   // [전체선택]chk
 
@@ -31,11 +31,66 @@ const evt = {
     init(startDt, endDt);
   },
 
-  // [예약하기]btn click
-  reserve: () => {
+  // [예약 가능한 시설 확인]btn click
+  findReservableFaci: () => {
     // TODO validation!!
+    /**
+     * 예약 신청 날짜는 조회날짜의 범위 안에 있어야 한다!
+     * @type {{startYmd: (jQuery|string|undefined), endHm: (jQuery|string|undefined), endYmd: (jQuery|string|undefined), startHm: (jQuery|string|undefined)}}
+     */
 
-    console.log('evt.reseve!!!');
+    // 예약 신청 기간
+    var appl = {
+      startYmd: $('#resvStartYmd').val()
+      , startHm: $('#resvStartHm').val()
+      , endYmd: $('#resvEndYmd').val()
+      , endHm: $('#resvEndHm').val()
+    };
+
+    /**
+     * 시설별 loop
+     *    예약현황 loop
+     *        if 예약현황의 기간과 예약신청의 기간을 비교한다
+     */
+    // var 예약가능여부 = true;
+    // for (시설 in 시설들) {
+    //   for (예약 in 시설.예약들) {
+    //     if (신청.시작일자 <= 예약.종료일자 && 신청.종료일자 >= 예약.시작일자) {
+    //       예약가능여부 = false;
+    //       break;
+    //     }
+    //   }
+    //   if(!예약가능여부) {
+    //     시설.비활성화 = true;
+    //     예약가능여부 = true;
+    //   }
+    // }
+    //
+    var resChkYn = true;
+    for (var faci in data) {
+      var faciId = faci.faciId;
+
+      for (var res in faci.reservations) {
+        if (appl.startYmd <= res.endYmd && appl.endYmd >= res.startYmd) {
+          resChkYn = false;
+          break;
+        }
+      }
+      if(!resChkYn) {
+        // TODO 예약불가한 시설이다! checkbox를 비활성화 하자!
+        $("[name=faciId][value=" + faciId + "]").remove();
+        // $("[name=faciId][value=" + faciId + "]").attr("disabled", "true");
+        resChkYn = true;
+      }
+    }
+
+
+    console.log('evt.reseve!!!'
+      , $('#resvStartYmd').val()
+      , $('#resvStartHm').val()
+      , $('#resvEndYmd').val()
+      , $('#resvEndHm').val()
+    );
   },
 
   // [전체선택]chk click 시 시설 check toggle
