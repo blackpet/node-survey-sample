@@ -67,20 +67,23 @@ const evt = {
     // }
     //
     var resChkYn = true;
-    for (var faci in data) {
-      var faciId = faci.faciId;
-
-      for (var res in faci.reservations) {
-        if (appl.startYmd <= res.endYmd && appl.endYmd >= res.startYmd) {
+    var v_array = new Array();
+    for (var faci in faciList) {
+      var faciId = faciList[faci].faciId;
+      v_array = faciList[faci].reservations;
+      for (var res in v_array) {
+        if (appl.startYmd <= v_array[res].endYmd && appl.endYmd >= v_array[res].startYmd) {
           resChkYn = false;
           break;
         }
       }
       if(!resChkYn) {
         // TODO 예약불가한 시설이다! checkbox를 비활성화 하자!
-        $("[name=faciId][value=" + faciId + "]").remove();
+        $("[name=faciId][value=" + faciId + "]").hide();
         // $("[name=faciId][value=" + faciId + "]").attr("disabled", "true");
         resChkYn = true;
+      }else{
+        $("[name=faciId][value=" + faciId + "]").show();
       }
     }
 
@@ -168,12 +171,12 @@ const facilityService = {
   }
 };
 
+let faciList;
 
 function init(startDt, endDt) {
-  let data;
   // 시설정보 loading
   facilityService.loadFacilities().then((res) => {
-    data = res;
+    faciList = res;
 
     // 시설 예약정보 loading
     facilityService.loadReservations().then((res) => {
@@ -185,15 +188,15 @@ function init(startDt, endDt) {
         .map((value, key) => {
 
           // faciId 별 .reservations 에 예약정보를 할당하자!
-          const f = _.find(data, function(o) { return o.faciId == key; });
+          const f = _.find(faciList, function(o) { return o.faciId == key; });
           f.reservations = value;
         })
         .value();
 
-      console.log('final data', data);
+      console.log('final data', faciList);
 
       // render facility
-      facilityService.renderFacilities(data, startDt, endDt);
+      facilityService.renderFacilities(faciList, startDt, endDt);
     });
   });
 }
