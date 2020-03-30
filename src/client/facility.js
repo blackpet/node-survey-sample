@@ -11,11 +11,14 @@ $(document).ready(function () {
   // attach events
   // [시설 조회하기]btn
   $('#searchBtn').click(evt.searchFacility);
-  // [예약 가능한 시설 확인]btn
+  // [예약 가능한 시설 확인1]btn
   $('#reservableFaciBtn').click(evt.findReservableFaci);
+  // [예약 가능한 시설 확인2]btn
+  $('#reservableFaciBtn2').click(evt.findReservableFaci2);
 
-  // [전체선택]chk
-
+  // 반복 속성은 default:안함 이다!
+  $('#repeatEndDt').prop('disabled', true);
+  $(':radio[name=repeat]').click(evt.toggleRepeatState);
 });
 
 const evt = {
@@ -53,35 +56,40 @@ const evt = {
      *        if 예약현황의 기간과 예약신청의 기간을 비교한다
      */
     // var 예약가능여부 = true;
-    // for (시설 in 시설들) {
-    //   for (예약 in 시설.예약들) {
+    // for (시설 of 시설들) {
+    //   for (예약 of 시설.예약들) {
     //     if (신청.시작일자 <= 예약.종료일자 && 신청.종료일자 >= 예약.시작일자) {
     //       예약가능여부 = false;
     //       break;
     //     }
     //   }
     //   if(!예약가능여부) {
-    //     시설.비활성화 = true;
+    //     시설.set비활성화;
     //     예약가능여부 = true;
     //   }
     // }
-    //
-    var resChkYn = true;
+
+
+    // 예약 가능 여부
+    var isCanRes = true;
+
+    // 일단! 모든 시설건은 예약 가능상태로 초기화 한 후 시작하자!
+    $(':checkbox[name=faciId]').prop('disabled', false);
+
+    // 시설을 돌면서~
     for (var faci of faciList) {
       var faciId = faci.faciId;
+      // 시설별 예약현황을 돌면서 기 예약이 잡혀있는지 여부를 확인하자!
       for (var res of faci.reservations) {
         if (((appl.startYmd+appl.startHm) <= (res.endYmd+res.endHm)) && ((appl.endYmd+appl.endHm) >= (res.startYmd+res.startHm))) {
-          resChkYn = false;
+          isCanRes = false;
           break;
         }
       }
-      if(!resChkYn) {
-        // TODO 예약불가한 시설이다! checkbox를 비활성화 하자!
-        $("[name=faciId][value=" + faciId + "]").hide();
-        // $("[name=faciId][value=" + faciId + "]").attr("disabled", "true");
-        resChkYn = true;
-      }else{
-        $("[name=faciId][value=" + faciId + "]").show();
+      if(!isCanRes) {
+        // 예약불가한 시설이다! checkbox를 비활성화 하자!
+        $(':checkbox[name=faciId][value=' + faciId + ']').prop('disabled', true);
+        isCanRes = true;
       }
     }
 
@@ -94,6 +102,51 @@ const evt = {
     );
   },
 
+  // [예약 가능한 시설 확인2]btn click
+  findReservableFaci2: () => {
+
+    // 예약 신청 기간
+    var appl = {
+      startYmd: $('#resvStartYmd').val()
+      , startHm: $('#resvStartHm').val()
+      , endYmd: $('#resvEndYmd').val()
+      , endHm: $('#resvEndHm').val()
+    };
+
+    // 기예약건 data
+    var alreadyReserv = [];
+    // 예약 가능 여부
+    var isCanRes = true;
+
+    // 시설을 돌면서~
+    for (var faci of faciList) {
+      var faciId = faci.faciId;
+
+      // 시설별 예약현황을 돌면서 기 예약이 잡혀있는지 여부를 확인하자!
+      for (var res of faci.reservations) {
+        if (((appl.startYmd+appl.startHm) <= (res.endYmd+res.endHm)) && ((appl.endYmd+appl.endHm) >= (res.startYmd+res.startHm))) {
+          isCanRes = false;
+          // 예약불가한 시설이다! 예약 data 를 저장해놓자!
+          var faciInfo = {
+            faciId: faci.faciId,
+            location: faci.location,
+            name: faci.name
+          };
+          alreadyReserv.push( $.extend({}, faciInfo, res) );
+        }
+      }
+
+      // 다음 시설도 [예약 가능]에서부터 체크 시작하자!
+      isCanRes = true;
+    }
+
+    // 기 예약건이 있으면 화면에 출력하자!
+    if (alreadyReserv.length > 0) {
+      $('#description').text(JSON.stringify(alreadyReserv));
+    }
+
+  }, // end of findReservableFaci2()
+
   // [전체선택]chk click 시 시설 check toggle
   toggleCheckAll: (e) => {
     $('input[name=faciId]').prop('checked', e.target.checked);
@@ -103,6 +156,23 @@ const evt = {
   toggleFaciIdCheck: (e) => {
     $('#checkAll').prop('checked',
       $('input[name=faciId]:enabled').length == $('input[name=faciId]:checked').length);
+  },
+
+  toggleRepeatState: (e) => {
+    // disabled 인 모든 input 활성화 시키고 시작하자!
+    $(':disabled').prop('disabled', false);
+
+    // 반복:안함
+    if (e.currentTarget.value === '-') {
+      // 반복 종료일 disabled
+      $('#repeatEndDt').prop('disabled', true);
+    }
+
+    // 반복:매일
+    else {
+      // 매일반복인 경우 종료일 날짜는 무시!
+      $('#resvEndYmd').prop('disabled', true);
+    }
   }
 };
 

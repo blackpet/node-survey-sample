@@ -28,8 +28,18 @@
     <input type="text" id="resvEndYmd" value="20200227" placeholder="yyyyMMdd"> :
     <input type="text" id="resvEndHm" value="1610" placeholder="HH24mi">
 
-    <button id="reservableFaciBtn">예약 가능한 시설 확인</button>
+    <br>
+    <label>반복 : </label>
+    <input type="text" id="repeatEndDt" value="20200229" placeholder="yyyyMMdd">까지
+    <input type="radio" id="noRep" name="repeat" value="-" checked><label for="noRep">안함</label>
+    <input type="radio" id="repDaily" name="repeat" value="D"><label for="repDaily">매일</label>
+
+    <br>
+    <button id="reservableFaciBtn">예약 가능한 시설 확인(1)</button>
+    <button id="reservableFaciBtn2">예약 가능한 시설 확인(2)</button>
 </div>
+
+<div id="description"></div>
 
 <table id="facilityListTable" border="1">
     <thead id="facilitiesHeader">
