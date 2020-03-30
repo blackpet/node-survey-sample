@@ -14,5 +14,13 @@
     "name": "아주 노후된 강의실",
     "capacity": 80,
     "cost": 200000
+  },
+  {
+    "faciId": 3,
+    "thumbnail": "https://cdn.pixabay.com/photo/2020/02/07/14/49/glacier-4827387_960_720.jpg",
+    "location": "상무관 8층",
+    "name": "아주 좋은 강의실",
+    "capacity": 100,
+    "cost": 150000
   }
 ]
