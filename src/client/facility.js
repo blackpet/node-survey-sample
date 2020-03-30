@@ -67,12 +67,10 @@ const evt = {
     // }
     //
     var resChkYn = true;
-    var v_array = new Array();
-    for (var faci in faciList) {
-      var faciId = faciList[faci].faciId;
-      v_array = faciList[faci].reservations;
-      for (var res in v_array) {
-        if (appl.startYmd <= v_array[res].endYmd && appl.endYmd >= v_array[res].startYmd) {
+    for (var faci of faciList) {
+      var faciId = faci.faciId;
+      for (var res of faci.reservations) {
+        if (((appl.startYmd+appl.startHm) <= (res.endYmd+res.endHm)) && ((appl.endYmd+appl.endHm) >= (res.startYmd+res.startHm))) {
           resChkYn = false;
           break;
         }
