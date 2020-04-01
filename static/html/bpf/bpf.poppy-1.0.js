@@ -3,6 +3,8 @@
  * @author blackpet
  * @date 20.3.31
  *
+ * @dependency [ jquery ]
+ *
  * modal dialog layer
  */
 
@@ -15,9 +17,9 @@
   }
 
   // logger
-  function log(...args) {
+  function log() {
     if (_debug) {
-      console.log(args);
+      console.log(arguments);
     }
   }
 
@@ -43,19 +45,19 @@
       this.options = $.extend({}, this.options, options);
 
       // create poppy elements
-      this.el = $(`<div id="${this.id}" class="bpp">`);
+      this.el = $('<div id="' +this.id+ '" class="bpp">');
       var blockEl = $('<div class="bp-pageblock">');
-      var bodyEl = $(`
-            <div class="bp-body">
-                <div class="bp-main">
-                    <header>
-                        <h1>${this.options.title}</h1>
-                        <button class="bp-close-btn">Close</button>
-                    </header>
-                    <main><button class="foo-callback">[DEBUG]callback</button></main>
-                </div>
-            </div>
-        `);
+      var bodyEl = $(
+            '<div class="bp-body">' +
+                '<div class="bp-main">' +
+                    '<header>' +
+                        '<h1>' +this.options.title+ '</h1>' +
+                        '<button class="bp-close-btn">Close</button>' +
+                    '</header>' +
+                    '<main></main>' +
+                '</div>' +
+            '</div>'
+        );
 
       // options setting!
       var wh = {};
@@ -85,10 +87,10 @@
 
     this.handleEvent = function () {
       // bind close event
-      $(`#${this.id} .bp-close-btn`).click(this.close.bind(this));
+      $('#' +this.id+ ' .bp-close-btn').click(this.close.bind(this));
 
       // prevent form submit
-      $(`#${this.id} form`).on('submit', function (e) {
+      $('#' +this.id+ ' form').on('submit', function (e) {
         e.preventDefault();
         e.stopPropagation();
 
@@ -115,7 +117,7 @@
       log('bpf.close()', this);
 
       // remove element
-      $(`#${this.id}.bpp`).remove();
+      $('#' +this.id+ '.bpp').remove();
 
       // delete BPF poppy object
       delete w.BPF.poppy[id];
@@ -189,7 +191,7 @@
 
     // Exception!
     if (!!w.BPF.poppy[id]) {
-      throw `${id} is already exists!!`;
+      throw id + ' is already exists!!';
     }
 
     var poppy = new bpfPoppy(id);
@@ -202,7 +204,7 @@
   // retrieve popup instance
   BPF.prototype.getPoppy = function (id) {
     if (!w.BPF.poppy[id]) {
-      throw `${id} poppy does not exists!!`;
+      throw id + ' poppy does not exists!!';
     }
 
     return w.BPF.poppy[id];
@@ -212,7 +214,7 @@
   // close popup
   BPF.prototype.close = function (id) {
     if (!w.BPF.poppy[id]) {
-      throw `${id} poppy does not exists!!`;
+      throw id + ' poppy does not exists!!';
     }
     this.getPoppy(id).close();
   };
@@ -268,3 +270,4 @@
   ///////////////////////
 
 })(window, false);
+

@@ -22,7 +22,8 @@ module.exports = (env, options) => {
             'realtime-survey-student': './src/client/realtime-survey/realtime-survey-student.js',
             'qr-reader': './src/client/qr-reader/qr-reader.js',
             'facility': './src/client/facility.js',
-            'fullcalendar': './src/client/fullcalendar/fullcalendar.js'
+            'fullcalendar': './src/client/fullcalendar/fullcalendar.js',
+            'bpf': './static/html/bpf/bpf.poppy-1.0.js',
         },
         output: {
             filename: '[name].bundle.js',
