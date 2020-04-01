@@ -58,6 +58,11 @@
         `);
 
       // options setting!
+      var wh = {};
+      if (this.options.width) wh.width = this.options.width;
+      if (this.options.height) wh.height = this.options.height;
+      if (Object.keys(wh).length > 0) bodyEl.css(wh);
+
       if (this.options.modal) {
         this.el.append(blockEl.append(bodyEl));
       } else {
@@ -158,6 +163,12 @@
         log('bpf.data.get()', key);
         if (!key) return localStorage;
         return localStorage[key];
+      },
+
+      delete: function (key) {
+        log('bpf.data.delete()', key);
+        if (!key) localStorage = {};
+        return delete localStorage[key];
       }
     };
 

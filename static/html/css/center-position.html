@@ -24,6 +24,8 @@
 
         .bpp .bp-body {
             width: 600px;
+            max-height: 98%;
+            overflow-y: auto;
             background-color: var(--bgcolor);
             margin: auto;
             position: fixed;
@@ -150,6 +152,8 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium alias aute
       url: '../bpf/bpf-poppy2.html',
       data: {param1:'abc', param2:'def'},
       title: '바닥이 열려있는 팝업',
+      width: 1000,
+      height: 500,
       modal: false,
       closeable: false,
       callback: function (data) {
