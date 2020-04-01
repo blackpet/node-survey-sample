@@ -22,7 +22,7 @@ module.exports = (env, options) => {
             'realtime-survey-student': './src/client/realtime-survey/realtime-survey-student.js',
             'qr-reader': './src/client/qr-reader/qr-reader.js',
             'facility': './src/client/facility.js',
-            'fullcalendar': './src/client/fullcalendar/fullcalendar.js',
+            'fullcalendar': './src/client/fullcalendar/fullcalendar.js'
         },
         output: {
             filename: '[name].bundle.js',
@@ -104,6 +104,11 @@ module.exports = (env, options) => {
             },
             hot: true, // enable HMR (Hot Module Replacement: 코드 변경 시 변경 모듈만 runtime 에서 교체)
             host: '0.0.0.0', // default: 'localhost', localhost 는 원격접속이 안된다! 원격 접속이 가능하도록 IP 구성으로 설정하자!
+            setup(app) {
+                app.post('*', (req, res) => {
+                   res.redirect(req.originalUrl);
+                });
+            },
         }
     } else {
         // production mode

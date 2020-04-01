@@ -13,7 +13,7 @@
 
         .lorem {line-height: 2em; height: 10em;}
 
-        .bpp .bp-container {
+        .bpp .bp-pageblock {
             position: fixed;
             top: 0;
             left: 0;
@@ -23,15 +23,15 @@
         }
 
         .bpp .bp-body {
-            width: 1000px;
-            height: 100px;
+            width: 600px;
             background-color: var(--bgcolor);
             margin: auto;
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            border: 3px solid red;
         }
 
         .bpp .bp-main {
@@ -44,6 +44,7 @@
 
 <div>
     <button id="openModalBtn">open modal</button>
+    <button id="openDialogBtn">open dialog</button>
 </div>
 
 <div class="lorem">
@@ -101,7 +102,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium alias aute
 </div>
 
 <div class="bpp" style="display: none;">
-    <div class="bp-container">
+    <div class="bp-pageblock">
         <div class="bp-body">
             <div class="bp-main">
                 <h1>BlackPet Popup Layer</h1>
@@ -121,116 +122,40 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium alias aute
         </div>
     </div>
 </div>
-
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js" integrity="sha384-FzT3vTVGXqf7wRfy8k4BiyzvbNfeYjK+frTVqZeNDFl8woCbF0CYG6g2fMEFFo/i" crossorigin="anonymous"></script>
-
-<script>
-
-  (function (w, _debug) {
-
-    function BPF() {
-      this.poppy = {};
-    }
-
-    // logger
-    function log(...args) {
-      if (_debug) {
-        console.log(args);
-      }
-    }
-
-    function bpfPoppy(id) {
-
-      this.id = id;
-
-      /**
-       * callback from popup
-       * @param res
-       */
-      this.callback = function (res) {
-        log('bpf.callback()', res);
-      };
-
-      this.close = function () {
-        log('bpf.close()');
-      };
-
-      this.popup = function (options) {
-        log('bpf.popup()', options);
-      };
-
-      this.submit = function (form, _toUrl, _callback) {
-        log('bpf.submit()', form, _toUrl, _callback);
-      };
-
-      this.data = {
-        put: function (key, value) {
-          log('bpf.put()', key, value);
-        },
-
-        get: function (key) {
-          log('bpf.data.get()', key);
-        }
-      };
-
-    }
-
-    // static members
-    BPF.prototype.popup = function (id, options) {
-      if (options && options.debug) {
-        _debug = options.debug;
-      }
-
-      log('BPF.prototype.popup()', id, options);
-
-
-      // Exception!
-      if (!!w.BPF.poppy[id]) {
-        throw `${id} is already exists!!`;
-      }
-
-      var poppy = new bpfPoppy(id);
-      w.BPF.poppy[id] = poppy;
-      poppy.popup(options);
-
-    }; // end of popup()
-
-
-    BPF.prototype.getPoppy = function (id) {
-      if (!w.BPF.poppy[id]) {
-        throw `${id} poppy does not exists!!`;
-      }
-
-      return w.BPF.poppy[id];
-    }; // end of getPopup()
-
-
-    BPF.prototype.close = function (id) {
-      if (!w.BPF.poppy[id]) {
-        throw `${id} poppy does not exists!!`;
-      }
-    };
-    // end of static members
-
-
-    // global variable creation for BPF
-    if (!w.BPF) {
-      w.BPF = new BPF();
-    } else {
-      return;
-    }
-
-  })(window, false);
-</script>
+<script type="text/javascript" src="/html/bpf/bpf.poppy-0.1.js"></script>
 
 <script>
   $(function () {
     $('#openModalBtn').click(openModal);
+    $('#openDialogBtn').click(openDialog);
   });
 
   function openModal() {
-    BPF.popup('aaa', {debug: true});
+    BPF.popup('aaa', {
+      debug: true,
+      url: '../bpf/bpf-poppy1.html',
+      callback: callback1
+    });
+  }
+
+  function callback1(data) {
+    console.log('callback1', data);
+  }
+
+  function openDialog() {
+    BPF.popup('bbb', {
+      debug: true,
+      url: '../bpf/bpf-poppy2.html',
+      data: {param1:'abc', param2:'def'},
+      title: '바닥이 열려있는 팝업',
+      modal: false,
+      closeable: false,
+      callback: function (data) {
+        console.log('annomyous callback', data);
+      }
+    });
   }
 </script>
 
