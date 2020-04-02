@@ -137,6 +137,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium alias aute
   function openModal() {
     BPF.popup('aaa', {
       debug: true,
+      modal: false,
       url: '../bpf/bpf-poppy1.html',
       callback: callback1
     });
@@ -153,8 +154,6 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium alias aute
       data: {param1:'abc', param2:'def'},
       title: '바닥이 열려있는 팝업',
       width: 1000,
-      height: 500,
-      modal: false,
       closeable: false,
       callback: function (data) {
         console.log('annomyous callback', data);

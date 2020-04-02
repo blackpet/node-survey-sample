@@ -2,6 +2,12 @@
  * bpf.poppy
  * @author blackpet
  * @date 20.3.31
+ * @dependency [ jquery ]
+ *
+ * @usage
+ * <code>
+ *   BPF.popup( 'poppyId', {url: '/popup-page-url', ....} );
+ * </code>
  *
  * modal dialog layer
  */
@@ -52,7 +58,7 @@
                         <h1>${this.options.title}</h1>
                         <button class="bp-close-btn">Close</button>
                     </header>
-                    <main><button class="foo-callback">[DEBUG]callback</button></main>
+                    <article></article>
                 </div>
             </div>
         `);
@@ -74,7 +80,8 @@
       }
 
       // load page
-      this.el.find('main').load(this.options.url, this.options.data, function () {
+      this.options.data = parseToJson(this.options.data);
+      this.el.find('article').load(this.options.url, this.options.data, function () {
         $('body').append($this.el);
         $this.handleEvent();
       });
@@ -144,7 +151,7 @@
       }
 
       // load page
-      this.el.find('main').load(url, obj, function () {
+      this.el.find('article').load(url, obj, function () {
         $('body').append($this.el);
         $this.handleEvent();
 
@@ -153,18 +160,32 @@
 
     };
 
+    // data structure
     this.data = {
+      // put {key:value} to localStorage
       put: function (key, value) {
         log('bpf.put()', key, value);
         localStorage[key] = value;
       },
 
+      // push value to array
+      push: function (key, value) {
+        log('bpf.push()', key, value);
+        if (!key in localStorage) {
+          localStorage[key] = [value];
+        } else {
+          localStorage[key].push(value);
+        }
+      },
+
+      // get value of key
       get: function (key) {
         log('bpf.data.get()', key);
         if (!key) return localStorage;
         return localStorage[key];
       },
 
+      // delete data of key
       delete: function (key) {
         log('bpf.data.delete()', key);
         if (!key) localStorage = {};
@@ -230,10 +251,19 @@
   // utilities
   ///////////////////////
   function parseToJson(obj) {
-    if (obj instanceof jQuery) return obj.serializeObject();
-    if (typeof obj === 'object') return obj;
+    var json = {};
 
-    return null;
+    if (obj instanceof Array) {
+      obj.forEach(function (el) {
+        json = $.extend({}, json, parseToJson(el));
+      });
+    } else if (obj instanceof jQuery) {
+      json = obj.serializeObject();
+    } else if (typeof obj === 'object') {
+      json = obj;
+    }
+
+    return json;
   }
 
   jQuery.fn.serializeObject = function () {
