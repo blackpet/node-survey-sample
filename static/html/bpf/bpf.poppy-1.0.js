@@ -101,6 +101,28 @@
 
         return false;
       });
+
+      // for firb solution pagination
+      var $poppy = this;
+      $poppy.el.find('.pageNavi [bp-page]').each(function () {
+        // remove exist event handler
+        this.onclick = null;
+
+        $(this).click(function () {
+          $poppy.paginate.call($poppy, $(this).attr('bp-page'));
+        });
+
+      });
+    };
+
+    /**
+     * (for firb)
+     * paginated submit
+     */
+    this.paginate = function (page) {
+      log(`paginate to ${page}`, this);
+      // 첫번째 FORM 과 p_pageno 파라메터를 가지고 submit을 날리자!
+      $(this.submit([this.el.find('form').eq(0), {p_pageno: page}]));
     };
 
     /**
@@ -171,11 +193,25 @@
       // push value to array
       push: function (key, value) {
         log('bpf.push()', key, value);
-        if (!key in localStorage) {
+        if (!(key in localStorage)) {
           localStorage[key] = [value];
         } else {
           localStorage[key].push(value);
         }
+      },
+
+      // remove array item of key's value
+      remove: function (key, value) {
+        var idx = localStorage[key].indexOf(value);
+        if (idx > -1) {
+          localStorage[key].splice(idx, 1);
+        }
+      },
+
+      // index of array
+      indexOf: function (key, value) {
+        if (!(key in localStorage)) return -99;
+        return localStorage[key].indexOf(value);
       },
 
       // get value of key
@@ -183,6 +219,11 @@
         log('bpf.data.get()', key);
         if (!key) return localStorage;
         return localStorage[key];
+      },
+
+      // get data from caller
+      _default: function () {
+        return this.options.data;
       },
 
       // delete data of key

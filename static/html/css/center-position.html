@@ -40,6 +40,12 @@
             background-color: var(--bgcolor);
         }
 
+        .pageNavi .pageNow a {
+            text-decoration: none;
+            font-weight: bold;
+            color: red;
+        }
+
     </style>
 </head>
 <body>
@@ -47,6 +53,7 @@
 <div>
     <button id="openModalBtn">open modal</button>
     <button id="openDialogBtn">open dialog</button>
+    <button id="openPaginationBtn">open pagination dialog</button>
 </div>
 
 <div class="lorem">
@@ -103,35 +110,15 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium alias aute
 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium alias autem beatae, delectus dicta eligendi facere, iusto maxime nostrum ut velit vero voluptatum? A atque dolorum explicabo modi quae? Obcaecati?
 </div>
 
-<div class="bpp" style="display: none;">
-    <div class="bp-pageblock">
-        <div class="bp-body">
-            <div class="bp-main">
-                <h1>BlackPet Popup Layer</h1>
-                <div class="searchPanel">
-                    <form name="frm1">
-                        txt1: <input type="text" name="txt1" placeholder="txt1">
-                        txt2: <input type="text" name="txt2" placeholder="txt2">
-                        <button id="searchBtn">검색</button>
-                        <input type="submit">
-                    </form>
-                </div>
-                <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquid commodi consequatur eius enim
-                    et excepturi hic libero maxime, molestias nemo quaerat saepe ut vitae voluptatem! Et repellendus
-                    sequi tempore?
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js" integrity="sha384-FzT3vTVGXqf7wRfy8k4BiyzvbNfeYjK+frTVqZeNDFl8woCbF0CYG6g2fMEFFo/i" crossorigin="anonymous"></script>
-<script type="text/javascript" src="/html/bpf/bpf.poppy-0.1.js"></script>
+<script type="text/javascript" src="/html/bpf/bpf.poppy-1.0.js"></script>
 
 <script>
   $(function () {
     $('#openModalBtn').click(openModal);
     $('#openDialogBtn').click(openDialog);
+    $('#openPaginationBtn').click(openPagination);
   });
 
   function openModal() {
@@ -157,6 +144,19 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium alias aute
       closeable: false,
       callback: function (data) {
         console.log('annomyous callback', data);
+      }
+    });
+  }
+
+  function openPagination() {
+    BPF.popup('ccc', {
+      debug: true,
+      url: '../bpf/pagination.html',
+      data: {param1:'abc', param2:'def'},
+      title: '페이징이 있는 목록 팝업',
+      width: 1000,
+      callback: function (data) {
+        console.log('pagination callback', data);
       }
     });
   }
