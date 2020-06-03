@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Realtime Survey :: Tutor</title>
+  <script src="https://kit.fontawesome.com/c19589889a.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="realtime-survey tutor">
+
+  <h1>survey items (Tutor)</h1>
+
+  <div class="connect-users">
+    <ul>
+      <li class="user01"><i class="fas fa-circle"></i> <span>user01</span></li>
+      <li class="user02"><i class="fas fa-circle"></i> <span>user02</span></li>
+      <li class="user03"><i class="fas fa-circle"></i> <span>user03</span></li>
+      <li class="user04"><i class="fas fa-circle"></i> <span>user04</span></li>
+      <li class="user05"><i class="fas fa-circle"></i> <span>user05</span></li>
+      <li class="user06"><i class="fas fa-circle"></i> <span>user06</span></li>
+      <li class="user07"><i class="fas fa-circle"></i> <span>user07</span></li>
+    </ul>
+  </div>
+
+  <button id="loadBtn">설문 조회</button>
+  <button id="startBtn">설문 시작</button>
+  <button id="disconnectBtn">연결끊기</button>
+
+  <div id="surveyItems"></div>
+
+
+</div>
+
+<div style="clear:both;" class="test">
+  <h2>vote graph animation test</h2>
+
+  <div class="graph"><div style="width:30%;">&nbsp;<span class="percent">0%</span></div></div>
+  <div>
+    <button id="testDecrease">decrease</button>
+    <button id="testIncrease">increase</button>
+  </div>
+  <div>
+    <button id="testDecrease1">survey1.decrease</button>
+    <button id="testIncrease1">survey1.increase</button>
+  </div>
+</div>
+
+<script type="text/javascript" src="/vendors.bundle.js"></script>
+<script type="text/javascript" src="/realtime-survey-tutor.bundle.js"></script>
+</body>
+</html>

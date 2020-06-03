@@ -1,0 +1,89 @@
+[
+  {
+    "faciId": 1,
+    "startYmd": "20200227",
+    "startHm": "0900",
+    "endYmd": "20200227",
+    "endHm": "1100"
+  },
+
+  {
+    "faciId": 1,
+    "startYmd": "20200227",
+    "startHm": "1300",
+    "endYmd": "20200227",
+    "endHm": "1500"
+  },
+  {
+    "faciId": 1,
+    "startYmd": "20200303",
+    "startHm": "1420",
+    "endYmd": "20200303",
+    "endHm": "1510"
+  },
+  {
+    "faciId": 2,
+    "startYmd": "20200227",
+    "startHm": "0900",
+    "endYmd": "20200227",
+    "endHm": "1100"
+  },
+
+  {
+    "faciId": 2,
+    "startYmd": "20200228",
+    "startHm": "1500",
+    "endYmd": "20200228",
+    "endHm": "1700"
+  },
+  {
+    "faciId": 2,
+    "startYmd": "20200227",
+    "startHm": "0900",
+    "endYmd": "20200227",
+    "endHm": "1100"
+  },
+
+  {
+    "faciId": 2,
+    "startYmd": "20200228",
+    "startHm": "1500",
+    "endYmd": "20200228",
+    "endHm": "1700"
+  },
+  {
+    "faciId": 2,
+    "startYmd": "20200302",
+    "startHm": "0900",
+    "endYmd": "20200302",
+    "endHm": "1130"
+  },
+  {
+    "faciId": 3,
+    "startYmd": "20200229",
+    "startHm": "1000",
+    "endYmd": "20200229",
+    "endHm": "1200"
+  },
+  {
+    "faciId": 3,
+    "startYmd": "20200228",
+    "startHm": "1630",
+    "endYmd": "20200228",
+    "endHm": "1750"
+  },
+  {
+    "faciId": 3,
+    "startYmd": "20200229",
+    "startHm": "1300",
+    "endYmd": "20200229",
+    "endHm": "1600"
+  },
+  {
+    "faciId": 3,
+    "startYmd": "20200302",
+    "startHm": "1600",
+    "endYmd": "20200302",
+    "endHm": "2000"
+  }
+]

@@ -1,0 +1,35 @@
+.searchPanel, .reservationPanel {
+  background-color: #eae6eb;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+#facilityListTable {
+  img {
+    width: 300px;
+  }
+
+  .faci-name {
+    span.location {
+      color: #666666;
+
+      &:before {
+        content: '[';
+      }
+
+      &:after {
+        content: ']';
+      }
+    }
+
+    span.name {
+      font-weight: bold;
+      color: #2471ff;
+    }
+  }
+
+}
+
+:disabled {
+  background-color: #a3a3a3;
+}

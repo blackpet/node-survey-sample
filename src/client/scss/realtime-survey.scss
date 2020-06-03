@@ -1,0 +1,93 @@
+$realtime-survey-tutor-color: yellow;
+$realtime-survey-student-color: lightgreen;
+$disconnected-user-color: gray;
+$connected-user-color: green;
+
+$graph-color: red;
+
+.hidden {
+  display: none;
+}
+input:disabled {
+  background-color: $disconnected-user-color;
+}
+
+.realtime-survey {
+  &.tutor {
+    background-color: $realtime-survey-tutor-color;
+  }
+
+  &.student {
+    background-color: $realtime-survey-student-color;
+  }
+}
+
+.connect-users {
+  float: right;
+  width: 300px;
+
+  li {
+    color: $disconnected-user-color;
+    transition: color .7s, background-color .7s;
+  }
+
+  li.on {
+    color: $connected-user-color;
+  }
+}
+
+
+/*-------------------------------------------------------------------------*/
+/*  survey result vote bar-graph style
+/*-------------------------------------------------------------------------*/
+
+.graph {
+  color: #fff;
+  font-size: 11px;
+  line-height: 25px;
+  width: 300px;
+  height: 25px;
+  margin-bottom: 5px;
+  background-color: rgba(0,0,0,0.1);
+
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  border-radius: 2px;
+
+  * {
+    transition: width 0.5s ease, left 0.5s ease, right 0.5s ease;
+  }
+
+  div {
+    background-color: #ffc600;
+    position: relative;
+    padding-left: 25px;
+    width: 0;
+    border-radius: 2px;
+  }
+
+  span {
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    padding: 0 5px 0 10px;
+    background-color: #1a1a1a;
+    border-radius: 0 2px 2px 0;
+  }
+
+  span:before {
+    content: "";
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    top: 50%;
+    left: -3px;
+    margin-top: -3px;
+    background-color: #1a1a1a;
+    transform: rotate(45deg);
+  }
+}
+

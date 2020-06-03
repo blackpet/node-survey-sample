@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nongshim Mobile APP Interface Test</title>
+    <style type="text/css">
+        .result-panel {
+            height: 10em;
+            border: 1px solid blue;
+        }
+    </style>
+</head>
+<body>
+<h1>Nongshim Education System Mobile APP Interface Test</h1>
+
+<h2>[GET] Device Token / App version</h2>
+<button id="getTokenDataBtn">retrieve data</button>
+<pre id="getTokenDataResult" class="result-panel"></pre>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="nsedu.mobile.API.js"></script>
+<script type="text/javascript">
+
+  $(function () {
+    $('#getTokenDataBtn').click(() => {
+      getTokenData();
+    });
+  });
+</script>
+</body>
+</html>
