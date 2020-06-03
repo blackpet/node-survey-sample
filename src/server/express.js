@@ -64,6 +64,7 @@ io.on('connection', (socket) => {
 
   // [tutor] 모든 수강생에 설문 시작 알림
   socket.on('startSurvey', (_survey) => {
+    console.log('startSurvey1231231231');
     survey = _survey;
     // start survey by tutor, broadcast to all students
     survey.user = 'student';

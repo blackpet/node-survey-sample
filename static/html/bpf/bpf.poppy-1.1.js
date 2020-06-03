@@ -2,7 +2,10 @@
  * bpf.poppy
  * @author blackpet
  * @date 20.3.31
- * @dependency [ jquery ]
+ * @dependency [ jquery, jsrender ]
+ *
+ * @releasenote
+ *  1.1. (20.4.28) load from css selector
  *
  * @usage
  * <code>
@@ -18,6 +21,17 @@
 
   function BPF() {
     this.poppy = {};
+    this.template = `
+            <div class="bp-body">
+                <div class="bp-main">
+                    <header class="bp-header">
+                        <h1>{{>title}}</h1>
+                        <button class="bp-close-btn">Close</button>
+                    </header>
+                    <article class="bp-article"></article>
+                </div>
+            </div>
+        `;
   }
 
   // logger
@@ -51,17 +65,7 @@
       // create poppy elements
       this.el = $(`<div id="${this.id}" class="bpp">`);
       var blockEl = $('<div class="bp-pageblock">');
-      var bodyEl = $(`
-            <div class="bp-body">
-                <div class="bp-main">
-                    <header>
-                        <h1>${this.options.title}</h1>
-                        <button class="bp-close-btn">Close</button>
-                    </header>
-                    <article></article>
-                </div>
-            </div>
-        `);
+      var bodyEl = $($.templates(w.BPF.template).render({title:this.options.title}));
 
       // options setting!
       var wh = {};
@@ -81,10 +85,26 @@
 
       // load page
       this.options.data = parseToJson(this.options.data);
-      this.el.find('article').load(this.options.url, this.options.data, function () {
-        $('body').append($this.el);
-        $this.handleEvent();
-      });
+
+      // xhr load or selector
+      // load from xhr request
+      if (!!this.options.url) {
+        this.el.find('article').load(this.options.url, this.options.data, function () {
+          $('body').append($this.el);
+          $this.handleEvent();
+        });
+      }
+      // load from selector (inset dom element)
+      else if (!!this.options.selector) {
+        var poppybody = $(this.options.selector).html();
+        // check jsrender template
+        if (/{{[^}]+}}/.test(poppybody)) {
+          poppybody = $.templates(poppybody).render(this.options.data);
+        }
+        this.el.find('article').append(poppybody);
+        $('body').append(this.el);
+        this.handleEvent();
+      }
 
 
       return this;
@@ -339,3 +359,4 @@
   ///////////////////////
 
 })(window, false);
+

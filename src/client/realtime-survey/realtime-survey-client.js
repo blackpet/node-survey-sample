@@ -39,6 +39,7 @@ const RealtimeSurveyClient = {
     return fetch('/html/realtime-survey/survey-items.json').then((res) => {
       if (res.ok) {
         const data = res.json();
+        console.log('serveSurvey', data);
         return data;
       }
       return null; // error
