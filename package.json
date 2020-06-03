@@ -8,6 +8,7 @@
     "client": "webpack-dev-server --mode development",
     "//": "webpack-dev-server --mode development --https --cert=cert.pem --key=cert.pem",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "prod": "concurrently \"npm run build\" \"npm run start\"",
     "start": "node src/server/app.js --exec babel-node",
     "stop": "lsof -ti :3000 | xargs kill",
     "build": "webpack --mode production",
