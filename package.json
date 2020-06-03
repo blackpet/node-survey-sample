@@ -4,7 +4,6 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "server": "nodemon src/server/app.js",
     "client": "webpack-dev-server --mode development",
     "//": "webpack-dev-server --mode development --https --cert=cert.pem --key=cert.pem",
